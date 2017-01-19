@@ -5,7 +5,11 @@
 
   <body>
     <script>
-      function reducer(state = 0, action) {
+      function reducer(state, action) {
+        if (typeof state === 'undefined') {
+          return 0;
+        }
+
         switch (action.type) {
           case 'INCREMENT':
             return state + 1;
@@ -62,16 +66,15 @@
         return {
           getState: getState,
           dispatch: dispatch,
-          subscribe: subscribe,
-          listeners: listeners
-        }
+          subscribe: subscribe
+        };
       }
 
       // Create store
       var store = createStore(reducer);
 
       // Dispatch one action
-      store.dispatch({ type: 'INCREMENT' })
+      store.dispatch({ type: 'INCREMENT' });
 
       // Dispatching increment action should increment
       expect(
